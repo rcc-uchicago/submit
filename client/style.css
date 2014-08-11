@@ -1,69 +1,74 @@
-body {
-  margin-top: 25px;
-  margin-left: 50px;
-  margin-right: 50px;
-  font-family: "Helvetica", sans-serif;
-  font-weight: 100;
-  color: #777;
-  -webkit-font-smoothing: antialiased;
-  background: aliceblue;
-}
+  body {
+    margin-top: 25px;
+    margin-left: 50px;
+    margin-right: 50px;
+    font-family: "Helvetica", sans-serif;
+    font-weight: 100;
+    color: #777;
+    -webkit-font-smoothing: antialiased;
+    background: aliceblue;
+  }
+ 
+  #file {
+    color: darkblue;
+    font-size: 20px;
+  }
 
-#file {
-  color: darkblue;
-  font-size: 20px;
-}
+  #file:hover {
+    color: steelblue;
+    cursor: pointer;
+  }
 
-#file:hover {
-  color: steelblue;
-  cursor: pointer;
-}
+  #frm1 {
+    margin-bottom: 20px;
+  }
 
-#frm1 {
-  margin-bottom: 20px;
-}
+  #explain {
+    border: 2px solid steelblue;
+    margin-top: 10px;
+  }
 
-#explain {
-  border: 2px solid steelblue;
-  margin-top: 10px;
-}
+  h1 {
+    color: steelblue;
+    font-size: 35px;
+  }
 
-h1 {
-  color: steelblue;
-  font-size: 35px;
-}
+  #data {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 15px;
+  }
 
-#data {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  font-size: 15px;
-}
+  #fileInfo {
+    background-color: white;
+    text-align: center;
+    border-radius: 10px;
+  }
 
-#fileInfo {
-  background-color: white;
-  text-align: center;
-  border-radius: 10px;
-}
+  #submitbutton {
+    background-color: darkblue;
+    text-align: center;
+  }
 
-#submitbutton {
-  background-color: darkblue;
-}
+  #submitbutton:hover {
+    background-color: lightblue;
+  }
 
-#submitbutton:hover {
-  background-color: lightblue;
-}
+  input {
+    margin-bottom: 10px;
+  }
 
-h2 {
-  background-color: steelblue;
-  color: aliceblue;
-  text-align: center;
-  font-size: 25px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
+  h2 {
+    background-color: steelblue;
+    color: aliceblue;
+    text-align: center;
+    font-size: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-.info {
-  display: flex;
-  font-size: 25px;
-  width: 515px;
-}
+  .info {
+    display: flex;
+    font-size: 25px;
+    width: 515px;
+  }
