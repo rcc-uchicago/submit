@@ -32,20 +32,21 @@ function sendForm() {
   var formData = new FormData();
   var fname = document.getElementById("firstname").value;
   var lname = document.getElementById("lastname").value;
-  //var uploadedfile = document.getElementById("chooser").value;
+  var uploadedFile = document.getElementById("chooser").files[0];
   formData.append("fname", fname);
   formData.append("lname", lname);
-  //formData.append("file", uploadFile);
+  formData.append("file", uploadedFile);
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8000/api/post", true);
   xhr.onload = function(e) {
     if (this.status==200) {
-      console.log("Hello World, again!");
+      console.log("Form sent!");
     }
   };
   xhr.send(formData);
 };
+
 
 function submitFunc() {
   document.getElementById("submit").innerHTML = "Submitted!"
@@ -60,7 +61,11 @@ function resetFunc() {
   document.getElementById("data").innerHTML = "(File Contents)";
   document.getElementById("firstname").value = "";
   document.getElementById("lastname").value = "";
-  loadfile();
 };
 
 loadfile();
+
+
+
+
+
