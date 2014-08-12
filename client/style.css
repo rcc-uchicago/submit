@@ -33,6 +33,23 @@
     font-size: 35px;
   }
 
+  #drop_zone {
+    margin: 0 auto;
+    width:400px;
+    height:100px;
+    background-color:#939292;
+    color:black;
+    outline: 2px #494949 dashed;
+    padding: 24px;
+    font-size:13px;
+    font-family:arial,sans-serif;
+  }
+  #butthold {
+    margin: 0 auto;
+    width: 300px;
+  }
+
+
   #data {
     margin-top: 10px;
     margin-bottom: 10px;
