@@ -1,47 +1,71 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
+function loadfile() {
+  window.rows = [];
 
-</style>
+  function load() {
+    var File, reader;
+    File = this.files[0];
+    if (!File.name.match('\.csv$')) {
+      return;
+    }
+    file.textContent = File.name;
+    reader = new FileReader();
+    reader.onload = function(file) {
+      this.result.split('\n').map(function(row) {
+        if (row.match(/^\d/)) {
+          window.rows.push(row.split(','));
+        }
+      });
+      data.textContent = this.result; //shows contents of file
+    };
+    reader.readAsText(File);
+  };
+  
+  document.getElementById("chooser").style.display="none"; //makes Submit button invisible
+  //link Submit button and text
+  chooser.addEventListener('change', load);
+  file.addEventListener('click', function() {
+    chooser.click();
+  });
+};
 
-<head>
-  <link href="mystyle.css" rel="stylesheet">
-  <title>File Upload</title>
-</head>
+function sendForm() {
+  var formData = new FormData();
+  var fname = document.getElementById("firstname").value;
+  var lname = document.getElementById("lastname").value;
+  var uploadedFile = document.getElementById("chooser").files[0];
+  formData.append("fname", fname);
+  formData.append("lname", lname);
+  formData.append("file", uploadedFile);
 
-<body>
-  <h1>File Uploading Web App</h1>
-
-  <h2>Upload file</h2>
-  <form id="frm1" name="myForm" action="http://localhost:8000/api/post" enctype="multipart/form-data" method="post">
-    First name: <input type="text" name="fname" id="firstname"><br>
-    Last name: <input type="text" name="lname" id="lastname"><br>
-
-
-    <div id="file">Click here to upload</div>
-    <input type="file" id="chooser" name="uploadedfile">
-  </form>  
-
-  <div id="data">
-    <p>(File Contents)</p>
-  </div>
-
-  <div id="submitbutton">Submit</div>
-  <button id="submit" onclick="submitFunc()">Submit</button>
-  <button id="reset" onclick="resetFunc()">Reset</button><br>
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://localhost:8000/api/post", true);
+  xhr.onload = function(e) {
+    if (this.status==200) {
+      console.log("Form sent!");
+    }
+  };
+  xhr.send(formData);
+};
 
 
-  <div id="explain">
-    <p>Click on the Submit button to change text.</p>
-    <p>Click on the Reset button to change it back.</p>
-  </div>
+function submitFunc() {
+  document.getElementById("submit").innerHTML = "Submitted!"
+  document.getElementById("submit").disabled = true;
+  sendForm();
+};
+
+function resetFunc() {
+  document.getElementById("file").innerHTML = "Click here to upload";
+  document.getElementById("submit").innerHTML = "Submit"
+  document.getElementById("submit").disabled = false;
+  document.getElementById("data").innerHTML = "(File Contents)";
+  document.getElementById("firstname").value = "";
+  document.getElementById("lastname").value = "";
+};
+
+loadfile();
 
 
-  <p id="foo"></p>
 
-  <script src="main.js"></script>
 
-</body>
-</html>
+
