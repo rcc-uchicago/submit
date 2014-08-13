@@ -1,0 +1,29 @@
+{
+  "name": "submit-server",
+  "version": "0.0.0",
+  "description": "simple server for form/file uploads",
+  "main": "server.js",
+  "dependencies": {
+    "good": "^2.2.1",
+    "hapi": "^6.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rcc-uchicago/submit"
+  },
+  "keywords": [
+    "file",
+    "submit"
+  ],
+  "author": "Tejong Lim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rcc-uchicago/submit/issues"
+  },
+  "homepage": "https://github.com/rcc-uchicago/submit"
+}
