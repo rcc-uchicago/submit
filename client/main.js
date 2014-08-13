@@ -37,8 +37,8 @@ function sendForm() {
   //var draggedFile = document.getElementById("drop_zone").files[0];
   formData.append("fname", fname);
   formData.append("lname", lname);
-  formData.append("aboutfile", descript);
-  formData.append("file", uploadedFile);
+  formData.append("descript", descript);
+  formData.append("uploadedFile", uploadedFile);
   //formData.append("dragfile", draggedFile);
 
   var xhr = new XMLHttpRequest();
