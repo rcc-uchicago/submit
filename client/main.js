@@ -7,7 +7,7 @@ function loadfile() {
     if (!File.name.match('\.csv$')) {
       return;
     }
-    file.textContent = File.name;
+    filename.textContent = File.name; //changed from file
     reader = new FileReader();
     reader.onload = function(file) {
       this.result.split('\n').map(function(row) {
@@ -32,10 +32,14 @@ function sendForm() {
   var formData = new FormData();
   var fname = document.getElementById("firstname").value;
   var lname = document.getElementById("lastname").value;
+  var descript = document.getElementById("description").value;
   var uploadedFile = document.getElementById("chooser").files[0];
+  //var draggedFile = document.getElementById("drop_zone").files[0];
   formData.append("fname", fname);
   formData.append("lname", lname);
-  formData.append("files", uploadedFile);
+  formData.append("aboutfile", descript);
+  formData.append("file", uploadedFile);
+  //formData.append("dragfile", draggedFile);
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8000/api/post", true);
@@ -58,11 +62,12 @@ function resetFunc() {
   document.getElementById("file").innerHTML = "Click here to upload";
   document.getElementById("submit").innerHTML = "Submit"
   document.getElementById("submit").disabled = false;
-  document.getElementById("data").innerHTML = "(File Contents)";
+  document.getElementById("filename").innerHTML = "";
+  document.getElementById("data").innerHTML = "";
   document.getElementById("firstname").value = "";
   document.getElementById("lastname").value = "";
 };
-
+//---------------------------------------------------------------------
 function handleFileSelect(evt) {
     evt.stopPropagation();
     evt.preventDefault();
@@ -90,6 +95,8 @@ function handleDragOver(evt) {
 var dropZone = document.getElementById('drop_zone');
   dropZone.addEventListener('dragover', handleDragOver, false);
   dropZone.addEventListener('drop', handleFileSelect, false);
+
+
 
 
 loadfile();
