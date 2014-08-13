@@ -11,14 +11,31 @@ var handler = function(request, reply) {
 };
 
 var postHandler = function(request, reply) {
-  server.log("Hello " + request.payload.fname + " " + request.payload.lname);
-  if (request.payload.aboutfile) {
+  server.log("POST request received")
+
+  if (request.payload.fname) {
+    if (request.payload.lname) {
+      server.log("Hello " + request.payload.fname + " " + request.payload.lname);
+    } else {
+      server.log("Hello " + request.payload.fname);
+    }
+  } else if (request.payload.lname) {
+    server.log("Hello " + request.payload.lname);
+  }
+
+  if (request.payload.descript) {
     server.log("About file: " + request.payload.descript);
   }
-  if (request.payload.uploadedFile) {
+
+
+  if (request.payload.uploadedFile.hapi) {
     var fname = request.payload.uploadedFile.hapi.filename;
     var save = fs.createWriteStream("./uploads/".concat(fname));
     request.payload.uploadedFile.pipe(save);
+    request.on('error', function(err) {
+      server.log(err);
+    });
+
   }
 }
 
@@ -58,12 +75,10 @@ server.pack.register(Good, function (err) {
   if (err) {
       throw err; // something bad happened loading the plugin
   }
-
   server.start(function () {
       server.log('info', 'Server running at: ' + server.info.uri);
   });
-
-  server.log(['error', 'database', 'read']);
+  //server.log(['error', 'database', 'read']);
 
 });
 
