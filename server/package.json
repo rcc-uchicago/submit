@@ -19,7 +19,7 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/rcc-uchicago/submit"
+    "url": "https://github.com/rcc-uchicago/submit.git"
   },
   "keywords": [
     "file",
