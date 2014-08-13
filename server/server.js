@@ -3,9 +3,6 @@
 var Hapi = require('hapi');
 var Good = require('good');
 var fs = require('fs');
-var multiparty = require('multiparty')
-  , http = require('http')
-  , util = require('util')
 
 var server = new Hapi.Server('localhost', 8000, { cors: true });
 
@@ -16,17 +13,14 @@ var handler = function(request, reply) {
 var postHandler = function(request, reply) {
   server.log("Hello " + request.payload.fname + " " + request.payload.lname);
   if (request.payload.aboutfile) {
-    server.log("About file: " + request.payload.aboutfile);
+    server.log("About file: " + request.payload.descript);
   }
-
-  request.payload.file.pipe(fs.createWriteStream("test"));
-  if (request.payload.file) {
-    server.log("Received file: " + request.payload.file);
+  if (request.payload.uploadedFile) {
+    var fname = request.payload.uploadedFile.hapi.filename;
+    var save = fs.createWriteStream("./uploads/".concat(fname));
+    request.payload.uploadedFile.pipe(save);
   }
-
-  //reply("Hello, " + request.payload.fname + " " + request.payload.lname + "!");
 }
-
 
 server.route([
   {
