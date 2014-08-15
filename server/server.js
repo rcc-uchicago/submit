@@ -11,7 +11,7 @@ var handler = function(request, reply) {
 };
 
 var postHandler = function(request, reply) {
-  server.log("POST request received")
+  server.log("Connection made!")
 
   if (request.payload.fname) {
     if (request.payload.lname) {
@@ -23,19 +23,34 @@ var postHandler = function(request, reply) {
     server.log("Hello " + request.payload.lname);
   }
 
-  if (request.payload.descript) {
-    server.log("About file: " + request.payload.descript);
-  }
-
-
-  if (request.payload.uploadedFile.hapi) {
-    var fname = request.payload.uploadedFile.hapi.filename;
-    var save = fs.createWriteStream("./uploads/".concat(fname));
-    request.payload.uploadedFile.pipe(save);
+  if (request.payload.upload0.hapi) {
+    var fname0 = request.payload.upload0.hapi.filename;
+    var save0 = fs.createWriteStream("./uploads/".concat(fname0));
+    request.payload.upload0.pipe(save0);
     request.on('error', function(err) {
       server.log(err);
     });
+    server.log("Received file: " + fname0);
+  }
 
+  if (request.payload.upload1.hapi) {
+    var fname1 = request.payload.upload1.hapi.filename;
+    var save1 = fs.createWriteStream("./uploads/".concat(fname1));
+    request.payload.upload1.pipe(save1);
+    request.on('error', function(err) {
+      server.log(err);
+    });
+    server.log("Received file: " + fname1);
+  }
+
+  if (request.payload.upload2.hapi) {
+    var fname2 = request.payload.upload2.hapi.filename;
+    var save2 = fs.createWriteStream("./uploads/".concat(fname2));
+    request.payload.upload1.pipe(save2);
+    request.on('error', function(err) {
+      server.log(err);
+    });
+    server.log("Received file: " + fname2);
   }
 }
 
