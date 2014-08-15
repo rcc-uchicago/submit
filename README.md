@@ -9,15 +9,15 @@ http://rcc-uchicago.github.io/submit/
 To test the demo web service, copy the client files to where you would like to host them. Make sure to copy the bootstrap directory, so the boostrap file pathways stay the same.
 
 The client files include the following:  
-  index.html  
-  main.js  
-  mystyle.css  
-  dist/css/bootstrap.css  
-  dist/js/bootstrap.css  
-  dist/fonts/glyphicons-halflings-regular.eot  
-  dist/fonts/glyphicons-halflings-regular.svg  
-  dist/fonts/glyphicons-halflings-regular.ttf  
-  dist/fonts/glyphicons-halflings-regular.woff  
+* index.html
+* main.js
+* mystyle.css
+* dist/css/bootstrap.css
+* dist/js/bootstrap.css
+* dist/fonts/glyphicons-halflings-regular.eot
+* dist/fonts/glyphicons-halflings-regular.svg
+* dist/fonts/glyphicons-halflings-regular.ttf
+* dist/fonts/glyphicons-halflings-regular.wof
 
 To run the server, first install modules initialize with this command: npm init  
 To finally run the server, type in the following command: node server.js
