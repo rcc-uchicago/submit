@@ -1,23 +1,17 @@
-
 function handleFileSelect(evt) {
-  evt.stopPropagation();
-  evt.preventDefault();
-
-  var files = evt.dataTransfer.files; // FileList object.
-
+  var files = evt.target.files; // FileList object
   // files is a FileList of File objects. List some properties.
   var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      if (!f.name.match('\.csv$')) {
-	      return;
-      }
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-      f.size, ' bytes, last modified: ',
-      f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a', '</li>');
-    }
-  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-  document.getElementById("chooser").files = files;
+  for (var i = 0, f; f = files[i]; i++) {
+    output.push('<li class="list-group-item"><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                f.size, ' bytes, last modified: ',
+                f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                '</li>');
+  }
+  document.getElementById('list').innerHTML = '<ul class="list-group">' + output.join('') + '</ul>';
 }
+
+document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 function handleDragOver(evt) {
   evt.stopPropagation();
@@ -30,50 +24,24 @@ var dropZone = document.getElementById('drop_zone');
   dropZone.addEventListener('dragover', handleDragOver, false);
   dropZone.addEventListener('drop', handleFileSelect, false);
 
+var elem = document.getElementById('files');
+elem.value = "Ricardo";
 
 //---------------------------------------------------------------------
-
-function loadfile() {
-  window.rows = [];
-
-  function load() {
-    var File, reader;
-    File = this.files[0];
-    if (!File.name.match('\.csv$')) {
-      return;
-    }
-    filename.textContent = File.name; //changed from file
-    reader = new FileReader();
-    reader.onload = function(file) {
-      this.result.split('\n').map(function(row) {
-        if (row.match(/^\d/)) {
-          window.rows.push(row.split(','));
-        }
-      });
-      data.textContent = this.result; //shows contents of file
-    };
-    reader.readAsText(File);
-  };
-  
-  document.getElementById("chooser").style.display="none"; //makes Submit button invisible
-  //link Submit button and text
-  chooser.addEventListener('change', load);
-  file.addEventListener('click', function() {
-    chooser.click();
-  });
-};
 
 function sendForm() {
   var formData = new FormData();
   var fname = document.getElementById("firstname").value;
   var lname = document.getElementById("lastname").value;
-  var descript = document.getElementById("description").value;
-  var uploadedFile = document.getElementById("chooser").files[0];
+  var upload0 = document.getElementById("files").files[0];
+  var upload1 = document.getElementById("files").files[1];
+  var upload2 = document.getElementById("files").files[2];
 
   formData.append("fname", fname);
   formData.append("lname", lname);
-  formData.append("descript", descript);
-  formData.append("uploadedFile", uploadedFile);
+  formData.append("upload0", upload0);
+  formData.append("upload1", upload1);
+  formData.append("upload2", upload2);
 
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "http://localhost:8000/api/post", true);
@@ -96,16 +64,6 @@ function resetFunc() {
   document.getElementById("file").innerHTML = "Click here to upload";
   document.getElementById("submit").innerHTML = "Submit"
   document.getElementById("submit").disabled = false;
-  document.getElementById("filename").innerHTML = "";
-  document.getElementById("data").innerHTML = "";
   document.getElementById("firstname").value = "";
   document.getElementById("lastname").value = "";
 };
-
-
-loadfile();
-
-
-
-
-
