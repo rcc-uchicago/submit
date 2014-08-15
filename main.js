@@ -44,7 +44,7 @@ function sendForm() {
   formData.append("upload2", upload2);
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:8000/api/post", true);
+  xhr.open("POST", "http://128.135.112.72:8000/api/post", true);
   xhr.onload = function(e) {
     if (this.status==200) {
       console.log("Form sent!");
@@ -53,7 +53,6 @@ function sendForm() {
   xhr.send(formData);
 };
 
-
 function submitFunc() {
   document.getElementById("submit").innerHTML = "Submitted!"
   document.getElementById("submit").disabled = true;
@@ -61,7 +60,6 @@ function submitFunc() {
 };
 
 function resetFunc() {
-  document.getElementById("file").innerHTML = "Click here to upload";
   document.getElementById("submit").innerHTML = "Submit"
   document.getElementById("submit").disabled = false;
   document.getElementById("firstname").value = "";
