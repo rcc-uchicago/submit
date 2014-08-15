@@ -19,7 +19,8 @@ The client files include the following:
 * dist/fonts/glyphicons-halflings-regular.ttf
 * dist/fonts/glyphicons-halflings-regular.wof
 
-To run the server, first install modules initialize with this command: npm init  
+To run the server, first initialize with this command: npm init  
+Make sure the dependencies include "good" and "hapi". You will only have to initialize once.
 To finally run the server, type in the following command: node server.js
 
 The host IP address is currently set to midway-login2.  
