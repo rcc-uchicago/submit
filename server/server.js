@@ -2,9 +2,12 @@
 
 var Hapi = require('hapi');
 var Good = require('good');
+var Joi = require("joi");
 var fs = require('fs');
 
-var server = new Hapi.Server('localhost', 8000, { cors: true });
+
+//midway-login2 is 128.135.112.72
+var server = new Hapi.Server('128.135.112.72', 8001, { cors: true });
 
 var handler = function(request, reply) {
   request.log(['test', 'error'], 'Test event');
@@ -13,14 +16,24 @@ var handler = function(request, reply) {
 var postHandler = function(request, reply) {
   server.log("Connection made!")
 
-  if (request.payload.fname) {
-    if (request.payload.lname) {
-      server.log("Hello " + request.payload.fname + " " + request.payload.lname);
-    } else {
-      server.log("Hello " + request.payload.fname);
-    }
-  } else if (request.payload.lname) {
-    server.log("Hello " + request.payload.lname);
+
+  //validation
+  var portSchema = Joi.number().integer().min(8000).max(8080);
+	var configSchema = Joi.object({
+		port: portSchema.required(),
+		fname: Joi.string().regex(/^[a-zA-Z]+$/).required(),
+		lname: Joi.string().regex(/^[a-zA-Z]+$/).required()
+	});
+  var config = {
+    port: 8001,
+		fname: request.payload.fname,
+		lname: request.payload.lname
+  }
+  var nameValid = Joi.validate(config, configSchema, {abortEarly: false});
+  if (!nameValid.error) {
+    server.log("Hello " + request.payload.fname + " " + request.payload.lname);
+  } else {
+    server.log("Please enter valid first and last name");
   }
 
   if (request.payload.upload0.hapi) {
@@ -52,6 +65,27 @@ var postHandler = function(request, reply) {
     });
     server.log("Received file: " + fname2);
   }
+
+  if (request.payload.upload3.hapi) {
+    var fname3 = request.payload.upload3.hapi.filename;
+    var save3 = fs.createWriteStream("./uploads/".concat(fname3));
+    request.payload.upload1.pipe(save3);
+    request.on('error', function(err) {
+      server.log(err);
+    });
+    server.log("Received file: " + fname3);
+  }
+
+  if (request.payload.upload4.hapi) {
+    var fname4 = request.payload.upload4.hapi.filename;
+    var save4 = fs.createWriteStream("./uploads/".concat(fname4));
+    request.payload.upload1.pipe(save4);
+    request.on('error', function(err) {
+      server.log(err);
+    });
+    server.log("Received file: " + fname4);
+  }
+  //reply({fname: request.payload.fname.toString(), lname: request.payload.lname.toString()});
 }
 
 server.route([
@@ -66,15 +100,15 @@ server.route([
 
   {
     method: 'POST',
-    path: '/api/post',
+    path: '/submit',
     config: {
-        payload:{
-              maxBytes: 209715200,
-              output:'stream',
-              parse: true
-        }, 
-        handler: postHandler
-    }
+      payload:{
+        maxBytes: 209715200,
+        output:'stream',
+        parse: true
+      }, 
+      handler: postHandler,
+  	}
   },
 
   {
@@ -88,12 +122,11 @@ server.route([
 
 server.pack.register(Good, function (err) {
   if (err) {
-      throw err; // something bad happened loading the plugin
+    throw err; // something bad happened loading the plugin
   }
   server.start(function () {
-      server.log('info', 'Server running at: ' + server.info.uri);
+    server.log('info', 'Server running at: ' + server.info.uri);
   });
   //server.log(['error', 'database', 'read']);
-
 });
 

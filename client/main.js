@@ -36,15 +36,19 @@ function sendForm() {
   var upload0 = document.getElementById("files").files[0];
   var upload1 = document.getElementById("files").files[1];
   var upload2 = document.getElementById("files").files[2];
+  var upload3 = document.getElementById("files").files[3];
+  var upload4 = document.getElementById("files").files[4];
 
   formData.append("fname", fname);
   formData.append("lname", lname);
   formData.append("upload0", upload0);
   formData.append("upload1", upload1);
   formData.append("upload2", upload2);
+  formData.append("upload3", upload3);
+  formData.append("upload4", upload4);
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://localhost:8000/api/post", true);
+  xhr.open("POST", "http://128.135.112.72:8001/submit", true); //midway-login2 is 128.135.112.72
   xhr.onload = function(e) {
     if (this.status==200) {
       console.log("Form sent!");
@@ -53,17 +57,18 @@ function sendForm() {
   xhr.send(formData);
 };
 
-
 function submitFunc() {
   document.getElementById("submit").innerHTML = "Submitted!"
   document.getElementById("submit").disabled = true;
+  document.getElementById("list").style.display = 'block';
   sendForm();
 };
 
 function resetFunc() {
-  document.getElementById("file").innerHTML = "Click here to upload";
   document.getElementById("submit").innerHTML = "Submit"
   document.getElementById("submit").disabled = false;
   document.getElementById("firstname").value = "";
   document.getElementById("lastname").value = "";
+  document.getElementById("list").style.display = 'none';
 };
+
