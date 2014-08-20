@@ -14,8 +14,8 @@ You can view [a minimalist demo of the client front-end](http://rcc-uchicago.git
 
 Modify the form elements in `client/index.html` according to your needs.
 
-Change the hostname and port for the server on [these lines of `main.js`](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L4-5)  
-The url of the server reflects the hostname and port [here](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L58) 
+Change the hostname and port for the server on [these lines of `main.js`](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L4-5).  
+The url of the server reflects the hostname and port [here](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L58). 
 
 #### Server
 
