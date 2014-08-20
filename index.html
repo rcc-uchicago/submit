@@ -5,8 +5,8 @@
 <head>
   <title>File Upload</title>
   <link href="dist/css/bootstrap.css" rel="stylesheet" media="screen">
-  <link href="style.css" rel="stylesheet">
-  <script type="text/javascript"> // Check for the various File API support.
+  <link href="mystyle.css" rel="stylesheet">
+  <script type="text/javascript">// Check for the various File API support.
     if (window.File && window.FileReader && window.FileList && window.Blob) {
     // Great success! All the File APIs are supported.
     } else {
@@ -32,10 +32,14 @@
           <li><a href="#" target="_blank"></a></li>
           <li><a href="#" target="_blank"></a></li>
         </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Login</a></li>
+        </ul>
       </div>
     </div>
   </nav>
   <div class="container-fluid">
+      <h1>File Upload</h1>
       <form id="frm1" action="http://localhost:8000/api/post" enctype="multipart/form-data" method="post">
         <div class="row">
           <div class="form-group col-md-6">
@@ -60,7 +64,7 @@
         </div>
         <div>
           <button type="button" class="btn btn-primary" id="submit" onclick="submitFunc()">Submit</button>
-          <button type="button" class="btn" id="reset" onclick="resetFunc()">Reset</button>
+          <button type="button" class="btn" id="reset" onclick="resetFunc()" disabled>Reset</button>
         </div>
       </form>
   </div>
