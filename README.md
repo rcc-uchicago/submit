@@ -14,13 +14,12 @@ You can view [a minimalist demo of the client front-end](http://rcc-uchicago.git
 
 Modify the form elements in `client/index.html` according to your needs.
 
-Change the url on [this line of `main.js`](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L4-5) to reflect the hostname and port of
-the server.
-
+Change the hostname and port for the server on [these lines of `main.js`](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L4-5)  
+The url of the server reflects the hostname and port [here](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L58) 
 
 #### Server
 
-Modify the host and port number as appropriate on [this line of `server.js`  ](https://github.com/rcc-uchicago/submit/blob/master/server/server.js#L7) 
+Modify the host and port number as appropriate on [these lines of `server.js`  ](https://github.com/rcc-uchicago/submit/blob/master/server/server.js#L4-5) to match those in 'main.js'.
 
 Install dependencies and fire up the server:
 
