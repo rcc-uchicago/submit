@@ -29,7 +29,7 @@ node server.js
 ```
 Can specify host IP address and port number with command line optiosn "-h" and "-p" respectively. Default values are the IP address for midway-login2 and port 8001.
 
-Example
+Example:
 ```
-node server.js -h 0.0.0.0 -8080
+node server.js -h 0.0.0.0 -p 8080
 ```
