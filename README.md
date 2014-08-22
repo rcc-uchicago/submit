@@ -27,7 +27,7 @@ Install dependencies and fire up the server:
 npm init          # installs dependencies
 node server.js
 ```
-Can specify host IP address and port number with command line optiosn "-h" and "-p" respectively. Default values are the IP address for midway-login2 and port 8001.
+Specify host IP address and port number with command line options "-h" and "-p" respectively. Default values are the IP address for midway-login2 and port 8001.
 
 Example:
 ```
