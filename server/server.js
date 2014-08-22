@@ -10,6 +10,14 @@ var Hapi = require('hapi');
 var Good = require('good');
 var Joi = require("joi");
 var fs = require('fs');
+var argv = require('minimist')(process.argv.slice(2));
+
+if (argv['h']) {
+	host = argv['h'];
+}
+if (argv['p']) {
+	port = argv['p'];
+}
 
 var server = new Hapi.Server(host, port, { cors: true });
 
