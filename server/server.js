@@ -1,25 +1,23 @@
-//-----------------------------------------------------------------------------
-// Host and port configuration
-
-var host = "0.0.0.0"  //midway-login2 is 128.135.112.72
-var port = "8001"
-
-//-----------------------------------------------------------------------------
-
 var Hapi = require('hapi');
 var Good = require('good');
-var Joi = require("joi");
+var Joi = require('joi');
 var fs = require('fs');
-var argv = require('minimist')(process.argv.slice(2));
+var parse = require('minimist');
 
-if (argv['h']) {
-	host = argv['h'];
-}
-if (argv['p']) {
-	port = argv['p'];
-}
+var options = {
+  alias: {
+    host: 'h',
+    port: 'p'
+  },
+  "default": {
+    host: '127.0.0.1',  // midway-login2 is 128.135.112.72
+    port: 8001
+  }
+};
 
-var server = new Hapi.Server(host, port, { cors: true });
+var argv = parse(process.argv.slice(2), options);
+
+var server = new Hapi.Server(argv.host, argv.port, { cors: true });
 
 var handler = function(request, reply) {
   request.log(['test', 'error'], 'Test event');
@@ -136,4 +134,3 @@ server.pack.register(Good, function (err) {
   });
   //server.log(['error', 'database', 'read']);
 });
-

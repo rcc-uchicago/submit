@@ -2,16 +2,18 @@
   "name": "server",
   "version": "1.0.0",
   "description": "This a simple file upload service.",
-  "main": "main.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "server": "node server.js"
   },
   "author": "Tejong Lim",
   "license": "ISC",
   "dependencies": {
     "good": "^2.2.0",
-    "hapi": "^6.4.0"
+    "hapi": "^6.4.0",
+    "minimist": "~1.1.0",
+    "joi": "~4.6.2"
   },
   "directories": {
     "test": "test"

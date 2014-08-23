@@ -9,7 +9,6 @@ You can view [a minimalist demo of the client front-end](http://rcc-uchicago.git
 
 ## Usage
 
-
 #### Client
 
 Modify the form elements in `client/index.html` according to your needs.
@@ -19,17 +18,18 @@ The url of the server reflects the hostname and port [here](https://github.com/r
 
 #### Server
 
-Modify the host and port number as appropriate on [these lines of `server.js`  ](https://github.com/rcc-uchicago/submit/blob/master/server/server.js#L4-5) to match those in 'main.js'.
-
 Install dependencies and fire up the server:
 
 ```
-npm init          # installs dependencies
-node server.js
+cd server
+npm install         # installs dependencies
+npm run server
 ```
-Specify host IP address and port number with command line options "-h" and "-p" respectively. Default values are the IP address for midway-login2 and port 8001. The defaults can be modified in the files as described above.
 
-Example:
+... or ...
+
 ```
-node server.js -h 0.0.0.0 -p 8080
+node server.js --host 127.0.0.1 --port 8080
 ```
+
+... to specify a particular host and port.
