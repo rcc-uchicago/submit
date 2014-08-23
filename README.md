@@ -23,13 +23,13 @@ Install dependencies and fire up the server:
 ```
 cd server
 npm install         # installs dependencies
-npm run server
+npm run server      # uses `localhost:8001`
 ```
 
 ... or ...
 
 ```
-node server.js --host 127.0.0.1 --port 8080
+node server.js --host 127.0.0.1 --port 8001
 ```
 
-... to specify a particular host and port.
+... to specify a particular host or port.
