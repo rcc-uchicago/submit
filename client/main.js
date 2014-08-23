@@ -1,9 +1,7 @@
 //-----------------------------------------------------------------------------
 // Host and port configuration
-
-var host = "0.0.0.0"  //midway-login2 is 128.135.112.72
+var host = "127.0.0.1"  // default is localhost; midway-login2 is 128.135.112.72
 var port = "8001"
-
 //-----------------------------------------------------------------------------
 
 function handleFileSelect(evt) {
