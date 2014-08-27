@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
   <title>File Upload</title>
   <link href="dist/css/bootstrap.css" rel="stylesheet" media="screen">
@@ -36,7 +36,6 @@
     </div>
   </nav>
   <div class="container-fluid">
-      <h1>File Upload</h1>
       <form id="frm1" action="http://localhost:8000/api/post" enctype="multipart/form-data" method="post">
         <div class="row">
           <div class="form-group col-md-6">
@@ -54,17 +53,30 @@
           <div class="form-group col-md-6">
             <label class="fileContainer">Drag & Drop files or click to browse.<br />
               <span class="glyphicon glyphicon-upload"></span>
-              <input type="file" id="files" name="files[]" multiple />
+              <input type="file" id="files" name="uploadfiles[]" multiple />
             </label>
+            <output id="msg">Validation message here</output>
             <output id="list"></output>
           </div>
         </div>
+        
+				<div class="row">
+          <div class="form-group col-md-6">
+            <label for="content">File Content Preview</label>
+	    			<div id="content" class="panel panel-default form-group">
+	      			<div id="filename" class="panel-heading"></div>
+              <div id="data" class="panel-body"></div>
+            </div>
+	  			</div>
+				</div>
+				
         <div>
           <button type="button" class="btn btn-primary" id="submit" onclick="submitFunc()">Submit</button>
           <button type="button" class="btn" id="reset" onclick="resetFunc()" disabled>Reset</button>
         </div>
       </form>
   </div>
+
   <script src="main.js"></script>
   <script src="http://code.jquery.com/jquery.js"></script>
   <script src="dist/js/bootstrap.js"></script>
