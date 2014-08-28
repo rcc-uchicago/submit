@@ -42,4 +42,4 @@ Follow these steps to fork the repository with fork-n-go:
 3. Make and commit changes to the client files in the gh-pages branch.  
 4. Website will be live at "http://username.github.io/repository", where username is your github username (originally "rcc-uchicago") and repository is the name that you give your forked repository (originally "submit").  
 
-Visit ['fork-n-go'](http://jlord.github.io/forkngo/)  for more information.
+Visit [fork-n-go](http://jlord.github.io/forkngo/)  for more information.
