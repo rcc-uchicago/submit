@@ -34,12 +34,17 @@ node server.js --host 127.0.0.1 --port 8001
 
 ... to specify a particular host or port.
 
-#### Fork-n-go
 
-Follow these steps to fork the repository with fork-n-go:  
+## Fork-n-go
+
+This repo is intended as a basic template for your own form/file uploading
+service.  Follow these steps to fork and customize this template for your particular project:
+
 1. Create a github account.  
-2. Fork the rcc-uchicago/submit repository.  
-3. Make and commit changes to the client files in the gh-pages branch.  
-4. Website will be live at "http://username.github.io/repository", where username is your github username (originally "rcc-uchicago") and repository is the name that you give your forked repository (originally "submit").  
+2. Fork this repo.  
+3. Make and commit changes to the client files in the `gh-pages` branch.  
 
-Visit [fork-n-go](http://jlord.github.io/forkngo/)  for more information.
+Your customized client should then be accessible at `http://<username>.github.io/submit`, where `username` is your github username.
+
+See [fork-n-go](http://jlord.github.io/forkngo/) for more information on this
+style of project templating.
