@@ -1,13 +1,12 @@
 # Submit
 
-A simple web service for submitting/validating file uploads and associated
-metadata.  We provide a sample web-client along with the web server,
-potentially useful as a starting template.
+A simple web service for submitting/validating file uploads and associated metadata.  We provide a sample web-client along with the web server, potentially useful as a starting template.
 
 You can view [a minimalist demo of the client front-end](http://rcc-uchicago.github.io/submit/). The demo submits user-specified form and file data to a Midway endpoint.
 
 
 ## Usage
+
 
 #### Client
 
@@ -15,6 +14,7 @@ Modify the form elements in [`client/index.html`](https://github.com/rcc-uchicag
 
 The client assumes the server is running on `localhost` using port `8001`.  If
 you run the server elsewhere, be sure to change the `host` and `port` vars in [`client/main.js`](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L4-5).
+
 
 #### Server
 
@@ -33,6 +33,10 @@ node server.js --host 127.0.0.1 --port 8001
 ```
 
 ... to specify a particular host or port.
+
+
+See the [tutorial](docs/tutorial.md) for a step-by-step example walkthrough of
+customizing the client-side form elements and server-side upload action.
 
 
 ## Fork-n-go
