@@ -13,5 +13,33 @@ In particular, it would be great if you could show how to ...
 
 ## Adding a New Form Field
 
-['Here'](https://github.com/rcc-uchicago/submit/blob/master/client/index.html#L40-L45) is the block of code for the form field for first name in index.html. Simply copy and paste within the form tags and modify to create a new form field.
+[Here](https://github.com/rcc-uchicago/submit/blob/master/client/index.html#L40-L45) is the block of code for the form field for first name in index.html. Simply copy and paste within the form tags and modify [these lines](https://github.com/rcc-uchicago/submit/blob/master/client/index.html#L42-L43) to create a new form field.
+
+For example, to add a form field for phone number, you might paste this after the first and last name form fields in index.html: 
+```
+<div class="row">
+  <div class="form-group col-md-6">
+    <label for="phone">Phone Number</label>
+    <input type="text" class="form-control input-medium" id="phone" placeholder="Phone">
+  </div>
+</div>
+```
+Notice attributes that have been modified. The id in the input line must match the for attribute in the label line. Here, they have been set to "phone". The innerHTML for label and placeholder attribute for input can be set to whatever you wish.
+
+Now in main.js in the sendForm function, get the input text as done for firstname [here](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L88) and add it to the form data as shown [here](https://github.com/rcc-uchicago/submit/blob/master/client/index.html#L96). Also, add a line in the resetFunc function to make the form field blank when the reset button is clicked as done [here](https://github.com/rcc-uchicago/submit/blob/master/client/index.html#L146). Here is an example below for a phone number form field: 
+```
+function sendForm() {
+...
+  var phone = document.getElementById("phone").value;
+  formData.append("phone", phone);
+...
+};
+
+function resetFunc() {
+...
+  document.getElementById("phone").value = "";
+...
+};
+```
+## Validating a New Form Field
 
