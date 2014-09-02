@@ -3,6 +3,27 @@ var Good = require('good');
 var Joi = require('joi');
 var fs = require('fs');
 var parse = require('minimist');
+var os = require('os');
+var getPort = require('get-port');
+
+
+function getIPAddress() {
+  var interfaces = os.networkInterfaces();
+  for (var devName in interfaces) {
+    var iface = interfaces[devName];
+
+    for (var i = 0; i < iface.length; i++) {
+      var alias = iface[i];
+      if (alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal)
+        return alias.address;
+    }
+  }
+  return '0.0.0.0';
+}
+
+getPort(function (e, p) {
+	console.log(p);
+});
 
 var options = {
   alias: {
@@ -10,7 +31,7 @@ var options = {
     port: 'p'
   },
   "default": {
-    host: '127.0.0.1',  // midway-login2 is 128.135.112.72
+    host: getIPAddress(),  // midway-login2 is 128.135.112.72
     port: 8001
   }
 };
