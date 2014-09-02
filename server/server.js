@@ -48,13 +48,13 @@ var postHandler = function(request, reply) {
   server.log("Connection made!")
 
   //validation
-	var configSchema = Joi.object({
-		fname: Joi.string().regex(/^[a-zA-Z]+$/).required(),
-		lname: Joi.string().regex(/^[a-zA-Z]+$/).required()
-	});
+  var configSchema = Joi.object({
+    fname: Joi.string().regex(/^[a-zA-Z]+$/).required(),
+    lname: Joi.string().regex(/^[a-zA-Z]+$/).required()
+  });
   var config = {
-		fname: request.payload.fname,
-		lname: request.payload.lname
+    fname: request.payload.fname,
+    lname: request.payload.lname
   }
   var nameValid = Joi.validate(config, configSchema, {abortEarly: false});
   if (nameValid.error) {
