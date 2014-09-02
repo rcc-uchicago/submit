@@ -46,10 +46,10 @@ function resetFunc() {
 Validation of form fields are done server-side with joi in server.js. Continuing our example with the phone number form field, you can either add lines to [this block of code](https://github.com/rcc-uchicago/submit/blob/master/server/server.js#L51-L59) or follow the structure to create a separate validation process for the phone number in addition to the one for the name fields. An example for creating a new separate validation could look like the following: 
 ```
 var configSchema2 = Joi.object({
-		phone: Joi.string().regex(/^[0-9]+$/).required(),
-	});
+  phone: Joi.string().regex(/^[0-9]+$/).required(),
+});
 var config2 = {
-	phone: request.payload.phone,
+  phone: request.payload.phone,
 }
 var phoneValid = Joi.validate(config2, configSchema2, {abortEarly: false});
 if (phoneValid.error) {
