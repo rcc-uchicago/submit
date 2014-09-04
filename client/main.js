@@ -1,22 +1,33 @@
-
 //-----------------------------------------------------------------------------
 // Host and port configuration
-var host = "127.0.0.1"  // default is localhost; midway-login2 is 128.135.112.72
+var host = "128.135.17.84"  // default is localhost; midway-login2 is 128.135.112.72
 var port = "8001"
 //-----------------------------------------------------------------------------
 
 window.rows = [];
 
-function validateFile() {
+function validateFields() {
+	var firstAlpha = document.getElementById("firstname").value.match(/^[a-zA-Z]+$/);
+	var lastAlpha = document.getElementById("lastname").value.match(/^[a-zA-Z]+$/);
+	
+	if (firstAlpha && lastAlpha) {
+		return true;
+	} else {
+		document.getElementById('msg').style.color = "red";
+		document.getElementById('msg').innerHTML = "Form fields must be filled and contain only letters";
+		return false;
+	}
+};
+
+function validateFile(File) {
+	if (!File.name.match('\.csv$')) {
+		document.getElementById('msg').style.color = "red";
+		document.getElementById('msg').innerHTML = "Files must have .csv extension.";
+		return;
+	};
 	arraylen = window.rows.length;
-	for (var i = 0; i < arraylen-1; i++) {
-		if (window.rows[i] == "") {
-			data.textContent = "OOPS";
-			continue;
-		}
-		if (window.rows[i].match(/[0-9]/)) {
-			continue;
-		} else {
+	for (var i = 0; i < arraylen; i++) {
+		if (!window.rows[i].match(/[0-9]/)) {
 			return false;
 		}
 	}
@@ -25,27 +36,35 @@ function validateFile() {
 
 (function () {
   function load() {
-    var Files, File, reader;
-    //Files = this.files;
-    //for (var i = 0; i < Files.length; i++) {
-    	File = this.files; //Files[i];
-		  if (!File.name.match('\.csv$')) {
-		   	document.getElementById('msg').style.color = "red";
-		  	document.getElementById('msg').innerHTML = "Files must be .csv";
-		    return;
-		  };
-		  filename.textContent = File.name; //changed from file
-		  reader = new FileReader();
-		  reader.onload = function(file) {
-		  	window.rows = [];
-		    this.result.split('\n').map(function(row) {
-		      var line = row.split(',');
-		      window.rows.push(line[2]);
-		    });
-  		document.getElementById('data').innerHTML = window.rows;
-		  };
-		  reader.readAsText(File);
-		//};
+    var File, reader;
+    var Files = this.files;
+    for (var i = 0; i < Files.length; i++) {
+		  File = Files[i];
+			filename.textContent = File.name;
+			reader = new FileReader();
+			reader.onload = function(file) {
+				window.rows = [];
+			  this.result.split('\n').map(function(row) {
+			    var line = row.split(',');
+			    if (line[2]) {
+			    	window.rows.push(line[2]);
+			  	}
+			  });
+				document.getElementById('data').innerHTML = window.rows;
+				document.getElementById('badfile').innerHTML = "";
+				if (validateFile(File)) {
+				 	document.getElementById('msg').style.color = "green";
+					document.getElementById('msg').innerHTML = "File is valid.";
+				} else {
+					document.getElementById('badfile').style.color = "red";
+					document.getElementById('badfile').innerHTML = "Please fix the following file: " + File.name;
+					document.getElementById('msg').style.color = "red";
+					document.getElementById('msg').innerHTML = "Third column of files can only contain numbers.";
+					return;
+				}
+			};
+			reader.readAsText(File);
+		}
   };
   files.addEventListener('change', load);
 }).call(this);
@@ -126,29 +145,22 @@ function clearFileInput() { //creates new file input element
 };
 
 function submitFunc() {
-  document.getElementById("submit").innerHTML = "Submitted!"
-  document.getElementById("submit").disabled = true;
-  document.getElementById("reset").disabled = false;
-  if (validateFile()) {
-   	document.getElementById('msg').style.color = "green";
-		document.getElementById('msg').innerHTML = "File(s) is valid";
-  	sendForm();
-  } else {
-  	document.getElementById('msg').style.color = "red";
-		document.getElementById('msg').innerHTML = "Third column can only be non-negative integer";
+	if (validateFields()) {
+		sendForm();
+	 	document.getElementById('msg').style.color = "green";		
+  	document.getElementById("msg").innerHTML = "Submitted!";
 	}
 };
 
 function resetFunc() {
   document.getElementById("submit").innerHTML = "Submit"
-  document.getElementById("submit").disabled = false;
-  document.getElementById("reset").disabled = true;
   document.getElementById("firstname").value = "";
   document.getElementById("lastname").value = "";
   document.getElementById("list").style.display = 'none';
   window.rows = [];
  	document.getElementById('msg').style.color = "#777";
   document.getElementById('msg').innerHTML = "Validation message here";
+  document.getElementById('badfile').innerHTML = "";
   document.getElementById("data").innerHTML = "";
   document.getElementById("filename").innerHTML = "";
   clearFileInput();
