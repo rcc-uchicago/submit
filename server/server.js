@@ -6,6 +6,7 @@ var parse = require('minimist');
 var os = require('os');
 var getPort = require('get-port');
 
+
 function getIPAddress() {
   var interfaces = os.networkInterfaces();
   for (var devName in interfaces) {
@@ -54,46 +55,6 @@ var postHandler = function(request, reply) {
 	  });
 	  server.log("Received file: " + fname0);
 	}
-
-	if (request.payload.upload1.hapi) {
-	  var fname1 = request.payload.upload1.hapi.filename;
-	  var save1 = fs.createWriteStream("./uploads/".concat(fname1));
-	  request.payload.upload1.pipe(save1);
-	  request.on('error', function(err) {
-		  server.log(err);
-		});
-		server.log("Received file: " + fname1);
-	}
-
-	if (request.payload.upload2.hapi) {
-	  var fname2 = request.payload.upload2.hapi.filename;
-	  var save2 = fs.createWriteStream("./uploads/".concat(fname2));
-	  request.payload.upload1.pipe(save2);
-	  request.on('error', function(err) {
-	    server.log(err);
-	  });
-	  server.log("Received file: " + fname2);
-	}
-
-	if (request.payload.upload3.hapi) {
-	  var fname3 = request.payload.upload3.hapi.filename;
-	  var save3 = fs.createWriteStream("./uploads/".concat(fname3));
-	  request.payload.upload1.pipe(save3);
-	  request.on('error', function(err) {
-	    server.log(err);
-	  });
-	  server.log("Received file: " + fname3);
-	}
-
-	if (request.payload.upload4.hapi) {
-	  var fname4 = request.payload.upload4.hapi.filename;
-	  var save4 = fs.createWriteStream("./uploads/".concat(fname4));
-	  request.payload.upload1.pipe(save4);
-	  request.on('error', function(err) {
-	    server.log(err);
-	  });
-	  server.log("Received file: " + fname4);
-	}
 }
 
 server.route([
@@ -129,11 +90,11 @@ server.route([
 ]);
 
 server.pack.register(Good, function (err) {
-  if (err) {
-    throw err; // something bad happened loading the plugin
-  }
+  if (err) { throw err; }
   server.start(function () {
-    server.log('info', 'Server running at: ' + server.info.uri);
+    server.log('Server running at: ' + server.info.uri);
   });
-  //server.log(['error', 'database', 'read']);
+
 });
+
+
