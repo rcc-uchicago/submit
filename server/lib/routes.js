@@ -1,54 +1,29 @@
-var postHandler = function(request, reply) {
-    console.log("Connection made!")
-    console.log("Hello " + request.payload.fname + " " + request.payload.lname);
-    if (request.payload.upload0.hapi) {
-        var fname0 = request.payload.upload0.hapi.filename;
-        var save0 = fs.createWriteStream("./uploads/".concat(fname0));
-        request.payload.upload0.pipe(save0);
-        request.on('error', function(err) {
-            console.log(err);
-        });
-        console.log("Received file: " + fname0);
-    }
+config = {
+    submit: {
+        get: function (request, reply) {
+            reply.file('client/index.html');
+        },
+        post: {
+            payload: {
+                maxBytes: 209715200,
+                output: 'stream',
+                parse: true
+            }, 
+            handler: function(request, reply) {
+                console.log(request.payload.first);
 
-    if (request.payload.upload1.hapi) {
-        var fname1 = request.payload.upload1.hapi.filename;
-        var save1 = fs.createWriteStream("./uploads/".concat(fname1));
-        request.payload.upload1.pipe(save1);
-        request.on('error', function(err) {
-            console.log(err);
-        });
-        console.log("Received file: " + fname1);
-    }
-
-    if (request.payload.upload2.hapi) {
-        var fname2 = request.payload.upload2.hapi.filename;
-        var save2 = fs.createWriteStream("./uploads/".concat(fname2));
-        request.payload.upload1.pipe(save2);
-        request.on('error', function(err) {
-            console.log(err);
-        });
-        console.log("Received file: " + fname2);
-    }
-
-    if (request.payload.upload3.hapi) {
-        var fname3 = request.payload.upload3.hapi.filename;
-        var save3 = fs.createWriteStream("./uploads/".concat(fname3));
-        request.payload.upload1.pipe(save3);
-        request.on('error', function(err) {
-            console.log(err);
-        });
-        console.log("Received file: " + fname3);
-    }
-
-    if (request.payload.upload4.hapi) {
-        var fname4 = request.payload.upload4.hapi.filename;
-        var save4 = fs.createWriteStream("./uploads/".concat(fname4));
-        request.payload.upload1.pipe(save4);
-        request.on('error', function(err) {
-            console.log(err);
-        });
-        console.log("Received file: " + fname4);
+                console.log(request.payload.file.hapi);
+                if (request.payload.file.hapi) {
+                    var name = request.payload.file.hapi.filename;
+                    var path = __dirname + "/../uploads/" + name;
+                    var file = fs.createWriteStream(path);
+                    file.on('error', function(err) { console.log(err) });
+                    request.payload.file.pipe(file);
+                    console.log("Received file: " + name);
+                }
+                request.on('error', function(err) { console.log(err) });
+            }
+        }
     }
 }
 
@@ -56,29 +31,27 @@ module.exports = [
     {
         method: 'GET',
         path: '/submit',
-        handler: function (request, reply) {
-            reply.file('/public/submit.html');
-        }
+        handler: config.submit.get
     },
-
     {
         method: 'POST',
         path: '/submit',
-        config: {
-            payload:{
-                maxBytes: 209715200,
-                output:'stream',
-                parse: true
-            }, 
-            handler: postHandler,
+        config: config.submit.post
+    },
+    {
+        method: 'GET',
+        path: '/client/{path*}',
+        handler: {
+            directory: {
+                path: 'client'
+            }
         }
     },
-
     {
         method: '*',
-        path: '/{p*}',
+        path: '/{path*}',
         handler: function (request, reply) {
-            reply('Page not found').code(404);
+            reply.redirect('/submit');
         }
     }
 ];
