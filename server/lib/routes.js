@@ -1,42 +1,57 @@
-var postHandler = function(request, reply) {
-  console.log(request.payload.form);
-	if (request.payload.upload.hapi) {
-	  var name = request.payload.upload.hapi.filename;
-    var path = __dirname + "/uploads/" + name
-	  var file = fs.createWriteStream(path);
-	  request.payload.upload.pipe(file);
-	  request.on('error', function(err) { console.log(err) });
-	  console.log("Received file: " + name);
-	}
+config = {
+    submit: {
+        get: function (request, reply) {
+            reply.file('client/index.html');
+        },
+        post: {
+            payload: {
+                maxBytes: 209715200,
+                output: 'stream',
+                parse: true
+            }, 
+            handler: function(request, reply) {
+                console.log(request.payload.first);
+
+                console.log(request.payload.file.hapi);
+                if (request.payload.file.hapi) {
+                    var name = request.payload.file.hapi.filename;
+                    var path = __dirname + "/../uploads/" + name;
+                    var file = fs.createWriteStream(path);
+                    file.on('error', function(err) { console.log(err) });
+                    request.payload.file.pipe(file);
+                    console.log("Received file: " + name);
+                }
+                request.on('error', function(err) { console.log(err) });
+            }
+        }
+    }
 }
 
 module.exports = [
     {
         method: 'GET',
         path: '/submit',
-        handler: function (request, reply) {
-            reply.file('/public/submit.html');
-        }
+        handler: config.submit.get
     },
-
     {
         method: 'POST',
         path: '/submit',
-        config: {
-            payload:{
-                maxBytes: 209715200,
-                output:'stream',
-                parse: true
-            }, 
-            handler: postHandler,
+        config: config.submit.post
+    },
+    {
+        method: 'GET',
+        path: '/client/{path*}',
+        handler: {
+            directory: {
+                path: 'client'
+            }
         }
     },
-
     {
         method: '*',
-        path: '/{p*}',
+        path: '/{path*}',
         handler: function (request, reply) {
-            reply('Page not found').code(404);
+            reply.redirect('/submit');
         }
     }
 ];

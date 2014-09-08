@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Submit Template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <!-- Custom styles for this template -->
+    <link href="client/style.css" rel="stylesheet">
+  </head>
+
+<body>
+  <div class="container">
+    <div class="jumbotron">
+      <form role="form">
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input type="name" class="form-control" id="firstName"
+          placeholder="Melvin K.">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input type="name" class="form-control" id="lastName"
+          placeholder="Mooney">
+        </div>
+        <div class="form-group">
+          <label for="inputFile">File input</label>
+          <br>
+          <button type="button" id="inputFile" class="btn btn-default">
+            Select
+          </button>
+          <input type="file" id="chooser">
+        </div>
+          <hr>
+        <button id="submit"
+                type="submit" 
+                class="btn btn-lg btn-primary">
+          <i class="glyphicon glyphicon-upload"></i>
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+
+<script src="client/load.js"></script>
+<script src="client/send.js"></script>

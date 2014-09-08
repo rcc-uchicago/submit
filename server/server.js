@@ -1,5 +1,6 @@
 var Hapi = require('hapi');
 var Good = require('good');
+var Path = require('path');
 var parse = require('minimist');
 var getIP = require('lib/ip');
 var routes = require('lib/routes');
