@@ -6,7 +6,7 @@ var parse = require('minimist');
 var os = require('os');
 var getPort = require('get-port');
 var Basic = require('hapi-auth-basic');
-var cnet = require('./cnet');   // validation func that takes a cnet_id, password, and callback
+var cnet = require('./cnet');
 
 function getIPAddress() {
   var interfaces = os.networkInterfaces();
@@ -22,7 +22,7 @@ function getIPAddress() {
 }
 
 getPort(function (e, p) {
-	console.log(p);
+  console.log(p);
 });
 
 var options = {
@@ -38,7 +38,14 @@ var options = {
 
 var argv = parse(process.argv.slice(2), options);
 
-var server = new Hapi.Server(argv.host, argv.port, { cors: true });
+var server = new Hapi.Server(argv.host, argv.port, { 
+	cors: true,
+	views: {
+		engines: { html: require('handlebars') },
+		path: "./client",
+		isCached: false
+	}
+});
 
 var handler = function(request, reply) {
   request.log(['test', 'error'], 'Test event');
@@ -52,49 +59,9 @@ var postHandler = function(request, reply) {
 	  var save0 = fs.createWriteStream("./uploads/".concat(fname0));
 	  request.payload.upload0.pipe(save0);
 	  request.on('error', function(err) {
-	    server.log(err);
+	    //server.log(err);
 	  });
 	  server.log("Received file: " + fname0);
-	}
-
-	if (request.payload.upload1.hapi) {
-	  var fname1 = request.payload.upload1.hapi.filename;
-	  var save1 = fs.createWriteStream("./uploads/".concat(fname1));
-	  request.payload.upload1.pipe(save1);
-	  request.on('error', function(err) {
-		  server.log(err);
-		});
-		server.log("Received file: " + fname1);
-	}
-
-	if (request.payload.upload2.hapi) {
-	  var fname2 = request.payload.upload2.hapi.filename;
-	  var save2 = fs.createWriteStream("./uploads/".concat(fname2));
-	  request.payload.upload1.pipe(save2);
-	  request.on('error', function(err) {
-	    server.log(err);
-	  });
-	  server.log("Received file: " + fname2);
-	}
-
-	if (request.payload.upload3.hapi) {
-	  var fname3 = request.payload.upload3.hapi.filename;
-	  var save3 = fs.createWriteStream("./uploads/".concat(fname3));
-	  request.payload.upload1.pipe(save3);
-	  request.on('error', function(err) {
-	    server.log(err);
-	  });
-	  server.log("Received file: " + fname3);
-	}
-
-	if (request.payload.upload4.hapi) {
-	  var fname4 = request.payload.upload4.hapi.filename;
-	  var save4 = fs.createWriteStream("./uploads/".concat(fname4));
-	  request.payload.upload1.pipe(save4);
-	  request.on('error', function(err) {
-	    server.log(err);
-	  });
-	  server.log("Received file: " + fname4);
 	}
 }
 
@@ -108,11 +75,22 @@ server.route([
     }
   },
 
-  {
+  { 
+		method: 'GET', 
+    path: '/{path*}', 
+    handler: {
+    	directory: {
+    		path: 'client',
+    		listing: false,
+    		index: false
+    	}
+    }
+  },
+
+	{
     method: 'POST',
     path: '/submit',
     config: {
-      auth:'simple',
       payload:{
         maxBytes: 209715200,
         output:'stream',
@@ -131,13 +109,25 @@ server.route([
   }
 ]);
 
+var options = {
+  tls: {
+    key: fs.readFileSync("private/key.pem"),
+    cert: fs.readFileSync("private/cert.pem")
+  }
+};
+
 server.pack.register(Basic, function (err) {
     if (err) { throw err; }
     server.auth.strategy('simple', 'basic', { validateFunc: cnet });
-
+    server.route({
+			method: 'GET', 
+		  path: '/submit', 
+		  config: { auth: 'simple' },
+		  handler: function (request, reply) {
+				reply.view('index');
+		  }
+  	});
     server.start(function () {
       console.log('Server running at: ' + server.info.uri);
-      console.log('Login at: ' + server.info.uri + '/login');
     });
 });
-
