@@ -1,6 +1,3 @@
-var host = "localhost";
-var port = "8001";
-var url = "https://" + host + ":" + port + "/submit"
 var $ = function (id) { return document.getElementById(id) };
 
 function formData() {
@@ -17,9 +14,9 @@ function formData() {
     
 function send(data) {
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true);
+    xhr.open("POST", '/submit', true);
     xhr.onload = function (e) {
-        if (this.status==200) {
+        if (this.status == 200) {
             console.log("Form sent!");
         }
     };
@@ -31,4 +28,3 @@ function submit() {
 }
 
 $("submit").addEventListener('click', submit);
-
