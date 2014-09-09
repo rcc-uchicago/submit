@@ -19,7 +19,7 @@ var argv = parse(process.argv.slice(2), argOptions);
 
 var options = {
     cors: true,
-    tls: require('lib/tls-config.js'),
+    // tls: require('lib/tls-config.js'),
     files: { relativeTo: Path.join(__dirname, 'public') }
 };
 

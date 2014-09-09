@@ -1,6 +1,6 @@
 var $ = function (id) { return document.getElementById(id) };
 
-function formData() {
+function send() {
     var data = new FormData();
     var meta = {
         first: firstName.value,
@@ -8,11 +8,10 @@ function formData() {
     };
     // data.append("meta", meta);
     data.append("first", firstName.value);
+    data.append("last", lastName.value);
     data.append("file", chooser.files[0]);
-    return data;
-};
+    console.log(chooser.files[0]);
     
-function send(data) {
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/submit', true);
     xhr.onload = function (e) {
@@ -23,8 +22,5 @@ function send(data) {
     xhr.send(data);
 };
 
-function submit() { 
-    send(formData());
-}
 
-$("submit").addEventListener('click', submit);
+$("submit").addEventListener('click', send);
