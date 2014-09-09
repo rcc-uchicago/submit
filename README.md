@@ -52,3 +52,7 @@ Your customized client should then be accessible at `http://<username>.github.io
 
 See [fork-n-go](http://jlord.github.io/forkngo/) for more information on this
 style of project templating.
+
+## File Organization
+
+In order to use, move "client" folder into "server" folder, then move "main.js" and "mystyle.css" into the "dist" folder. Cd back into the "server" folder and then follow the instructions as outlined above.
