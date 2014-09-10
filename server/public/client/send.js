@@ -2,15 +2,9 @@ var $ = function (id) { return document.getElementById(id) };
 
 function send() {
     var data = new FormData();
-    var meta = {
-        first: firstName.value,
-        last:  lastName.value
-    };
-    // data.append("meta", meta);
-    data.append("first", firstName.value);
-    data.append("last", lastName.value);
-    data.append("file", chooser.files[0]);
-    console.log(chooser.files[0]);
+    data.append("file", $('chooser').files[0]);
+    data.append("firstName", firstName.value);
+    data.append("lastName", lastName.value);
     
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/submit', true);
@@ -22,5 +16,4 @@ function send() {
     xhr.send(data);
 };
 
-
-$("submit").addEventListener('click', send);
+$('submit').addEventListener('click', send);

@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Submit Template</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-    <!-- Custom styles for this template -->
     <link href="client/style.css" rel="stylesheet">
   </head>
-
 <body>
+
   <div class="container">
+
     <div class="jumbotron">
+
       <form role="form">
         <div class="form-group">
           <label for="firstName">First name</label>
@@ -29,16 +30,21 @@
           <button type="button" id="inputFile" class="btn btn-default">
             Select
           </button>
-          <input type="file" id="chooser">
         </div>
-          <hr>
-        <button id="submit"
-                type="submit" 
-                class="btn btn-lg btn-primary">
-          <i class="glyphicon glyphicon-upload"></i>
-          Submit
-        </button>
       </form>
+
+      <!-- hidden file input element -->
+      <input type="file" id="chooser">
+
+      <hr>
+
+      <button id="submit"
+              type="submit" 
+              class="btn btn-lg btn-primary">
+        <i class="glyphicon glyphicon-upload"></i>
+        Submit
+      </button>
+
     </div>
   </div>
 
