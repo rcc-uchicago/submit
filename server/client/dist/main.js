@@ -5,50 +5,51 @@ var port = 8001
 //-----------------------------------------------------------------------------
 
 function validateFields() { // Validate form fields
-	var msg = document.getElementById('msg');
-	var first = document.getElementById("firstname").value.match(/^[a-zA-Z]+$/);
-	var last = document.getElementById("lastname").value.match(/^[a-zA-Z]+$/);
-	if (first && last) {
-		return true;
-	} else {
-		msg.style.color = "red";
-		msg.innerHTML = "Form fields must be filled and contain only letters";
-		return false;
-	}
+  var msg = document.getElementById('msg');
+  var first = document.getElementById("firstname").value.match(/^[a-zA-Z]+$/);
+  var last = document.getElementById("lastname").value.match(/^[a-zA-Z]+$/);
+  if (first && last) {
+    return true;
+  } else {
+    msg.style.color = "red";
+    msg.innerHTML = "Form fields must be filled and contain only letters";
+    return false;
+  }
 };
 
 function validateFile(File) { // Validate uploaded file
-	var msg = document.getElementById('msg');
-	if (File.name.match('\.csv$')) {
-		len = rows.length;
-		for (var i = 0; i < len; i++) {
-			if (!rows[i].match(/[0-9]/) || rows[i].match(/[a-zA-Z]/)) {
-				valid = 0;
-				return false;
-			}
-		}
-		valid = 1;
-		return true;
-	}
-	msg.style.color = "red";
-	msg.innerHTML = "Files must have .csv extension.";
-	valid = 0;
-	return false;
+  var msg = document.getElementById('msg');
+  if (File.name.match('\.csv$')) {
+    len = rows.length;
+    for (var i = 0; i < len; i++) {
+      if (!rows[i].match(/[0-9]/) || rows[i].match(/[a-zA-Z]/)) {
+        valid = 0;
+        return false;
+      	
+      }
+    }
+    valid = 1;
+    return true;
+  }
+  msg.style.color = "red";
+  msg.innerHTML = "Files must have .csv extension.";
+  valid = 0;
+  return false;
 };
 
 function handleFileSelect(evt) { // Display uploaded file description
-	var list = document.getElementById('list');
+  var list = document.getElementById('list');
   var f = evt.target.files[0];
   var output = [];
   output.push('<li class="list-group-item"><strong>', 
-  						escape(f.name), 
-  						'</strong> (', 
-  						f.type || 'n/a', 
-  						') - ',
-              f.size, 
-              ' bytes, last modified: ',
-              f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-              '</li>');
+    escape(f.name), 
+    '</strong> (', 
+    f.type || 'n/a', 
+    ') - ',
+    f.size, 
+    ' bytes, last modified: ', 
+    f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+    '</li>');
   list.innerHTML = '<ul class="list-group">' + output.join('') + '</ul>';
   list.style.display = 'block';
 };
@@ -76,34 +77,34 @@ function sendForm() { // Send form data to server
 };
 
 function load() { // When file is uploaded, display file info and validate
-	var reader;
-	var File = this.files[0];
-	var msg = document.getElementById('msg');
-	var badfile = document.getElementById('badfile');
-	filename.textContent = File.name;
-	reader = new FileReader();
-	reader.onload = function(file) {
-		rows = [];
-	  this.result.split('\n').map(function(row) {
-	    var entry = row.split(',')[2];
-	    if (entry) {
-	    	rows.push(entry);
-	  	}
-	  });
-		document.getElementById('data').innerHTML = rows;
-		document.getElementById('badfile').innerHTML = "";
-		if (validateFile(File)) {
-			msg.style.color = "green";
-			msg.innerHTML = "Valid.";
-		} else {
-			msg.style.color = "red";
-			msg.innerHTML = "Third column of files can only contain numbers.";
-			badfile.style.color = "red";
-			badfile.innerHTML = "Please fix the following file: " + File.name;
-			return;
-		}
-	};
-	reader.readAsText(File);
+  var reader;
+  var File = this.files[0];
+  var msg = document.getElementById('msg');
+  var badfile = document.getElementById('badfile');
+  filename.textContent = File.name;
+  reader = new FileReader();
+  reader.onload = function(file) {
+    rows = [];
+    this.result.split('\n').map(function(row) {
+      var entry = row.split(',')[2];
+      if (entry) {
+        rows.push(entry);
+      }
+    });
+    document.getElementById('data').innerHTML = rows;
+    document.getElementById('badfile').innerHTML = "";
+    if (validateFile(File)) {
+      msg.style.color = "green";
+      msg.innerHTML = "Valid.";
+    } else {
+      msg.style.color = "red";
+      msg.innerHTML = "Third column of files can only contain numbers.";
+      badfile.style.color = "red";
+      badfile.innerHTML = "Please fix the following file: " + File.name;
+      return;
+    }
+  };
+  reader.readAsText(File);
 };
 
 function clearFileInput() { // Create new file input element
@@ -120,19 +121,19 @@ function clearFileInput() { // Create new file input element
 };
 
 function submitFunc() { // Submit button
-	var msg = document.getElementById('msg');
-	var badfile = document.getElementById('badfile');
-	if (validateFields() && valid === 1) {
-		sendForm();
-	 	msg.style.color = "green";		
-  	msg.innerHTML = "Submitted!";
-  	badfile.innerHTML = "";
-		valid = 0;
-	} else {
-	 	msg.style.color = "red";		
-  	msg.innerHTML = "Submission failed!";
- 	 	badfile.style.color = "red";
-  	badfile.innerHTML = "Please make sure name fields are filled in and files are valid.";
+  var msg = document.getElementById('msg');
+  var badfile = document.getElementById('badfile');
+  if (validateFields() && valid === 1) {
+    sendForm();
+    msg.style.color = "green";		
+    msg.innerHTML = "Submitted!";
+    badfile.innerHTML = "";
+    valid = 0;
+  } else {
+    msg.style.color = "red";		
+    msg.innerHTML = "Submission failed!";
+    badfile.style.color = "red";
+    badfile.innerHTML = "Please make sure name fields are filled in and files are valid.";
   }
 };
 
@@ -143,7 +144,7 @@ function resetFunc() { // Reset button
   document.getElementById("firstname").value = "";
   document.getElementById("lastname").value = "";
   document.getElementById("list").style.display = 'none';
- 	document.getElementById('msg').style.color = "#777";
+  document.getElementById('msg').style.color = "#777";
   document.getElementById('msg').innerHTML = "Validation message here";
   document.getElementById('badfile').innerHTML = "";
   document.getElementById("data").innerHTML = "";
@@ -152,11 +153,11 @@ function resetFunc() { // Reset button
 };
 
 (function () {
-	var rows = [];
-	var valid = 0;
-	files.addEventListener('change', load);
-	var dropZone = document.getElementById('drop_zone'); // Setup the drag&drop listeners.
-	dropZone.addEventListener('dragover', handleDragOver, false);
-	dropZone.addEventListener('drop', handleFileSelect, false);
-	document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  var rows = [];
+  var valid = 0;
+  files.addEventListener('change', load);
+  var dropZone = document.getElementById('drop_zone'); // Setup the drag&drop listeners.
+  dropZone.addEventListener('dragover', handleDragOver, false);
+  dropZone.addEventListener('drop', handleFileSelect, false);
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
 }).call(this);
