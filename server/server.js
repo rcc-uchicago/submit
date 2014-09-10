@@ -1,10 +1,8 @@
 var Hapi = require('hapi');
-var Good = require('good');
 var Joi = require('joi');
 var fs = require('fs');
 var parse = require('minimist');
 var os = require('os');
-var getPort = require('get-port');
 var Basic = require('hapi-auth-basic');
 var cnet = require('./cnet');
 
@@ -20,10 +18,6 @@ function getIPAddress() {
   }
   return '0.0.0.0';
 }
-
-getPort(function (e, p) {
-  console.log(p);
-});
 
 var options = {
   alias: {
@@ -59,7 +53,7 @@ var postHandler = function(request, reply) {
 	  var save0 = fs.createWriteStream("./uploads/".concat(fname0));
 	  request.payload.upload0.pipe(save0);
 	  request.on('error', function(err) {
-	    //server.log(err);
+	    server.log(err);
 	  });
 	  server.log("Received file: " + fname0);
 	}
