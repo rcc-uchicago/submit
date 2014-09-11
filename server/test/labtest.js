@@ -43,8 +43,8 @@ lab.experiment('fileupload', function() {
                 password: password
             },
             payload: {
-                fname: 'TJ',
-                lname: 'Lim',
+                fname: 'Bob',
+                lname: 'Jones',
                 upload: {
                     hapi: { filename: 'test2.csv',
                         headers: { 
