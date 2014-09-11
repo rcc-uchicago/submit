@@ -3,8 +3,8 @@ var lab = exports.lab = Lab.script();
 var server = require('../');
 //-----------------------------------------------------------------------------
 // credentials
-var username = 'limt';
-var password = 'wistful.walrus72';
+var username = 'Bob';
+var password = 'password';
 //-----------------------------------------------------------------------------
 
 lab.experiment('fileupload', function() {
