@@ -5,12 +5,14 @@
   "main": "server.js",
   "dependencies": {
     "handlebars": "^2.0.0",
-    "hapi-auth-basic": "^1.1.1",
+    "hapi-auth-basic": "~1.1.1",
     "hapi": "^6.4.0",
     "minimist": "^1.1.0",
     "ldapjs": "^0.7.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "lab": "~4.4.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

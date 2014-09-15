@@ -4,7 +4,7 @@ var fs = require('fs');
 var parse = require('minimist');
 var os = require('os');
 var Basic = require('hapi-auth-basic');
-var cnet = require('./cnet');
+var cnet = require('lib/cnet');
 
 function getIPAddress() {
   var interfaces = os.networkInterfaces();
@@ -70,7 +70,7 @@ server.route([
   },
 
   { 
-		method: 'GET', 
+    method: 'GET', 
     path: '/{path*}', 
     handler: {
     	directory: {
@@ -103,25 +103,31 @@ server.route([
   }
 ]);
 
+/*
 var options = {
   tls: {
     key: fs.readFileSync("private/key.pem"),
     cert: fs.readFileSync("private/cert.pem")
   }
 };
+*/
 
 server.pack.register(Basic, function (err) {
     if (err) { throw err; }
     server.auth.strategy('simple', 'basic', { validateFunc: cnet });
     server.route({
-			method: 'GET', 
-		  path: '/submit', 
-		  config: { auth: 'simple' },
-		  handler: function (request, reply) {
-				reply.view('index');
-		  }
+        method: 'GET', 
+		path: '/submit', 
+		config: { auth: 'simple' },
+		handler: function (request, reply) {
+		    reply.view('index');
+        }
   	});
-    server.start(function () {
-      console.log('Server running at: ' + server.info.uri);
-    });
+    if (!module.parent) {
+        server.start(function () {
+        console.log('Server running at: ' + server.info.uri);
+        });
+    }
 });
+
+module.exports = server;
