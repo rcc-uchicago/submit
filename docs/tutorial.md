@@ -8,7 +8,7 @@ A step-by-step walkthrough of forking, customizing, running, and testing.
 Demonstrate how to ...
 
 - [x] ~~add a few form fields (e.g., day, month, and year fields for indicating date-of-birth)~~
-- [x] ~~validate the new fields as appropriate~~
+- [ ] validate the new fields as appropriate
 - [ ] set up the server in your home dir on midway
 - [ ] have the server write out submissions to a log (e.g., `birthdays.csv`)
 
@@ -43,7 +43,12 @@ function resetFunc() {
 ...
 };
 ```
+
+
 ## Validating a New Form Field
 
-Validation of form fields are done client-side in [main.js](https://github.com/rcc-uchicago/submit/blob/master/client/main.js). Continuing our example with the phone number form field, you can either add lines to [this block of code](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L10-21) or follow the structure to create a separate validation process for the phone number in addition to the one for the name fields. An example for creating a new separate validation could look like the following: 
+Validation of form fields are handled client-side in [main.js](https://github.com/rcc-uchicago/submit/blob/master/client/main.js). Continuing our example with the phone number form field, you can either add lines to [this block of code](https://github.com/rcc-uchicago/submit/blob/master/client/main.js#L10-21) or follow the structure to create a separate validation process for the phone number in addition to the one for the name fields. An example for creating a new separate validation could look like the following: 
+
+> TODO: include example
+
 
